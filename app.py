@@ -12,7 +12,7 @@ def primeiro_endpoint_get():
 
 @app.route("/predict")
 def segundo_endpoint():
-  return ("Chamando o predict", 200)
+  return ('{ "status": "Gera receita", "accuracy": 87.23 }', 200)
 
 if __name__ == "__main__":
   debug = True # com essa opção como True, ao salvar, o "site" recarrega automaticamente.
