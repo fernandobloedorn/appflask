@@ -5,7 +5,7 @@ from flask_cors import CORS
 ## __name__ é definido por padrão. Poderiamos usar outra string qualquer aqui, porém,
 ## não recomendo, pois, isso poderia causar problemas em aplicações maiores.
 app = Flask(__name__)
-CORS(app)
+cors = CORS(app, resources={r"*": {"origins": "*"}})
 
 # definimos aqui uma rota, no caso criamos a rota localhost:5000/
 @app.route("/")
@@ -13,7 +13,6 @@ def primeiro_endpoint_get():
   return ("Tudo Funcionando Corretamente !", 200) 
 
 @app.route("/predict", methods=["POST"])
-@cross_origin()
 def segundo_endpoint():
 
   body = request.get_json()
