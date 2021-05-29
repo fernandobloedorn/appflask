@@ -13,7 +13,8 @@ def primeiro_endpoint_get():
 @app.route("/predict", methods=["POST"])
 def segundo_endpoint():
 
-  body = request.json
+  # body = request.json
+  body = request.form['test']
 
   print(body)
 
