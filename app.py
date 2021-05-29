@@ -17,7 +17,7 @@ def segundo_endpoint():
 
   print(body)
 
-  return (body, 200)
+  return body
 
 if __name__ == "__main__":
   debug = True # com essa opção como True, ao salvar, o "site" recarrega automaticamente.
