@@ -21,7 +21,7 @@ def segundo_endpoint():
   print("Body:", body)
   print("Administrative Access:", body["administrativeAccess"])
 
-  return ("Reposta do predict!", 200) 
+  return (body, 200) 
 
 if __name__ == "__main__":
   debug = True # com essa opção como True, ao salvar, o "site" recarrega automaticamente.
