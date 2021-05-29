@@ -19,9 +19,32 @@ def segundo_endpoint():
   # test = request.form['test']
 
   print("Body:", body)
-  print("Administrative Access:", body["administrativeAccess"])
+  administrativeAccess = body["administrativeAccess"]
+  administrativeDuration = body["administrativeDuration"]
+  informationalAccess = body["informationalAccess"]
+  informationalDuration = body["informationalDuration"]
+  productRelatedAccess = body["productRelatedAccess"]
+  productRelatedDuration = body["productRelatedDuration"]
+  bounceRates = body["bounceRates"]
+  exitRates = body["exitRates"]
+  pageValues = body["pageValues"]
+  specialDay = body["specialDay"]
+  month = body["month"]
+  operatingSystems = body["operatingSystems"]
+  browser = body["browser"]
+  region = body["region"]
+  trafficType = body["trafficType"]
+  visitorType = body["visitorType"]
+  weekend = body["weekend"]
 
-  return ({ "message": "Nao gera recita com 99,40% de acuracidade."}, 200) 
+  print("Param: ", administrativeAccess, administrativeDuration, informationalAccess, informationalDuration,
+        productRelatedAccess, productRelatedDuration, bounceRates, exitRates,
+        pageValues, specialDay, month, operatingSystems, browser, region, 
+        trafficType, visitorType, weekend)
+
+  print("Exam: 0.0, 0.0, 0.0, 0.0, 2.0, 2.666667, 0.050000, 0.140000, 0.0, 0.0, 2.0, 3.0, 2.0, 2.0, 4.0, 2.0, 0.0")
+
+  return ({ "message": "Nao gera receita com 99,40% de acuracidade."}, 200) 
 
 if __name__ == "__main__":
   debug = True # com essa opção como True, ao salvar, o "site" recarrega automaticamente.
