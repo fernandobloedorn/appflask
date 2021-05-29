@@ -17,7 +17,7 @@ def segundo_endpoint():
   # test = request.form['test']
 
   print("Body:", body)
-  # print("Test:", test)
+  print("Test:", body["test"])
 
   return ("Reposta do predict!", 200) 
 
