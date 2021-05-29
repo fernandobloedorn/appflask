@@ -14,10 +14,10 @@ def primeiro_endpoint_get():
 def segundo_endpoint():
 
   body = request.get_json()
-  test = request.form['test']
+  # test = request.form['test']
 
   print("Body:", body)
-  print("Test:", test)
+  # print("Test:", test)
 
   return ("Reposta do predict!", 200) 
 
