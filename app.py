@@ -21,7 +21,7 @@ def segundo_endpoint():
   print("Body:", body)
   print("Administrative Access:", body["administrativeAccess"])
 
-  return ('{ "message": "Nao gera recita com 99,40% de acuracidade."}', 200) 
+  return ({ "message": "Nao gera recita com 99,40% de acuracidade."}, 200) 
 
 if __name__ == "__main__":
   debug = True # com essa opção como True, ao salvar, o "site" recarrega automaticamente.
