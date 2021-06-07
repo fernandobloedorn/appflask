@@ -15,7 +15,7 @@ cors = CORS(app, resources={r"*": {"origins": "*"}})
 # definimos aqui uma rota, no caso criamos a rota localhost:5000/
 @app.route("/")
 def primeiro_endpoint_get():
-  return ("Tudo Funcionando Corretamente !", 200) 
+  return ("Tudo Funcionando Corretamente! - versao 1.0", 200) 
 
 @app.route("/predict", methods=["POST"])
 def segundo_endpoint():
