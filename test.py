@@ -14,4 +14,4 @@ pred = model.predict(new)
 print(pred)
 
 pred_proba = model.predict_proba(new)
-pred_proba
+print(pred_proba)
