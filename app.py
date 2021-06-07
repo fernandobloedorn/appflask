@@ -15,7 +15,7 @@ cors = CORS(app, resources={r"*": {"origins": "*"}})
 # definimos aqui uma rota, no caso criamos a rota localhost:5000/
 @app.route("/")
 def primeiro_endpoint_get():
-  return ("Tudo Funcionando Corretamente! - versao 1.0", 200) 
+  return ("Tudo Funcionando Corretamente! - versao 2.0", 200) 
 
 @app.route("/predict", methods=["POST"])
 def segundo_endpoint():
@@ -34,13 +34,13 @@ def segundo_endpoint():
   _exits = float(body["exitRates"])
   pageVal = float(body["pageValues"])
   specialDay = float(body["specialDay"])
-  # month = body["month"]
-  # operatingSystems = body["operatingSystems"]
-  # browser = body["browser"]
-  # region = body["region"]
-  # trafficType = body["trafficType"]
-  # visitorType = body["visitorType"]
-  # weekend = body["weekend"]
+  month = float(body["month"])
+  os = float(body["operatingSystems"])
+  browser = float(body["browser"])
+  region = float(body["region"])
+  trafType = float(body["trafficType"])
+  visType = float(body["visitorType"])
+  weekend = float(body["weekend"])
 
   # print("Param: ", administrativeAccess, administrativeDuration, informationalAccess, informationalDuration,
   #       productRelatedAccess, productRelatedDuration, bounceRates, exitRates,
@@ -51,7 +51,7 @@ def segundo_endpoint():
 
   model = pickle.load(open('model_rcf', 'rb'))
 
-  new = np.array([adm, admDur, info, infoDur, prod, prodDur, bounce, _exits, pageVal, specialDay, 2.0, 3.0, 2.0, 2.0, 4.0, 2.0, 0.0]).reshape( 1, -1)
+  new = np.array([adm, admDur, info, infoDur, prod, prodDur, bounce, _exits, pageVal, specialDay, month, os, browser, region, trafType, visType, weekend]).reshape( 1, -1)
   pred = model.predict(new)
   pred_proba = model.predict_proba(new)
 
