@@ -1,6 +1,7 @@
 import numpy as np
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import pickle
 
 ## __name__ é definido por padrão. Poderiamos usar outra string qualquer aqui, porém,
 ## não recomendo, pois, isso poderia causar problemas em aplicações maiores.
@@ -44,7 +45,28 @@ def segundo_endpoint():
 
   # print("Exam: 0.0, 0.0, 0.0, 0.0, 2.0, 2.666667, 0.050000, 0.140000, 0.0, 0.0, 2.0, 3.0, 2.0, 2.0, 4.0, 2.0, 0.0")
 
-  return ({ "message": "Nao gera receita com 99,40% de acuracidade."}, 200) 
+  model = pickle.load(open('model_rcf', 'rb'))
+
+  new = np.array([0.0, 0.0, 0.0, 0.0, 2.0, 2.666667, 0.050000, 0.140000, 0.0, 0.0, 2.0, 3.0, 2.0, 2.0, 4.0, 2.0, 0.0]).reshape( 1, -1)
+  pred = model.predict(new)
+  pred_proba = model.predict_proba(new)
+
+  json = '{"revenue":' + ('True' if pred[0] else 'False') + ', "correct": '
+
+  correct = 0.0
+  incorrect = 0.0
+
+  if len(pred_proba) > 0:
+    l = len(pred_proba[0])
+    if l > 0:
+      correct = pred_proba[0][0]*100
+      if l > 1:
+        incorrect = pred_proba[0][1]*100
+
+  json += str(correct) + ', "incorrect": ' + str(incorrect) + '}'
+
+  # return ({ "message": "Nao gera receita com 99,40% de acuracidade."}, 200) 
+  return (json, 200) 
 
 if __name__ == "__main__":
   debug = True # com essa opção como True, ao salvar, o "site" recarrega automaticamente.
