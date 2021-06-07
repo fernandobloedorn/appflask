@@ -1,7 +1,11 @@
 import numpy as np
+import pickle
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import cross_val_predict
+from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score, f1_score, classification_report, mean_absolute_error, mean_squared_error
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-import pickle
 
 ## __name__ é definido por padrão. Poderiamos usar outra string qualquer aqui, porém,
 ## não recomendo, pois, isso poderia causar problemas em aplicações maiores.
@@ -19,8 +23,8 @@ def segundo_endpoint():
   body = request.get_json()
   # test = request.form['test']
 
-  print("Body:", body)
-  # administrativeAccess = body["administrativeAccess"]
+  #print("Body:", body)
+  adm = float(body["administrativeAccess"])
   # administrativeDuration = body["administrativeDuration"]
   # informationalAccess = body["informationalAccess"]
   # informationalDuration = body["informationalDuration"]
@@ -45,28 +49,28 @@ def segundo_endpoint():
 
   # print("Exam: 0.0, 0.0, 0.0, 0.0, 2.0, 2.666667, 0.050000, 0.140000, 0.0, 0.0, 2.0, 3.0, 2.0, 2.0, 4.0, 2.0, 0.0")
 
-  # model = pickle.load(open('model_rcf', 'rb'))
+  model = pickle.load(open('model_rcf', 'rb'))
 
-  # new = np.array([0.0, 0.0, 0.0, 0.0, 2.0, 2.666667, 0.050000, 0.140000, 0.0, 0.0, 2.0, 3.0, 2.0, 2.0, 4.0, 2.0, 0.0]).reshape( 1, -1)
-  # pred = model.predict(new)
-  # pred_proba = model.predict_proba(new)
+  new = np.array([adm, 0.0, 0.0, 0.0, 2.0, 2.666667, 0.050000, 0.140000, 0.0, 0.0, 2.0, 3.0, 2.0, 2.0, 4.0, 2.0, 0.0]).reshape( 1, -1)
+  pred = model.predict(new)
+  pred_proba = model.predict_proba(new)
 
-  # json = '{"revenue":' + ('True' if pred[0] else 'False') + ', "correct": '
+  json = '{"revenue": ' + ('True' if pred[0] else 'False') + ', "correct": '
 
-  # correct = 0.0
-  # incorrect = 0.0
+  correct = 0.0
+  incorrect = 0.0
 
-  # if len(pred_proba) > 0:
-  #   l = len(pred_proba[0])
-  #   if l > 0:
-  #     correct = pred_proba[0][0]*100
-  #     if l > 1:
-  #       incorrect = pred_proba[0][1]*100
+  if len(pred_proba) > 0:
+    l = len(pred_proba[0])
+    if l > 0:
+      correct = pred_proba[0][0]*100
+      if l > 1:
+        incorrect = pred_proba[0][1]*100
 
-  # json += str(correct) + ', "incorrect": ' + str(incorrect) + '}'
+  json += str(correct) + ', "incorrect": ' + str(incorrect) + '}'
 
-  return ({ "message": "Nao gera receita com 99,40% de acuracidade."}, 200) 
-  # return (json, 200) 
+  # return ({ "message": "Nao gera receita com 99,40% de acuracidade."}, 200) 
+  return (json, 200) 
 
 if __name__ == "__main__":
   debug = True # com essa opção como True, ao salvar, o "site" recarrega automaticamente.
