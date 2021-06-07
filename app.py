@@ -15,7 +15,7 @@ cors = CORS(app, resources={r"*": {"origins": "*"}})
 # definimos aqui uma rota, no caso criamos a rota localhost:5000/
 @app.route("/")
 def primeiro_endpoint_get():
-  return ("Tudo Funcionando Corretamente! - versao 2.0", 200) 
+  return ("Tudo Funcionando Corretamente! - versao 3.0", 200) 
 
 @app.route("/predict", methods=["POST"])
 def segundo_endpoint():
@@ -55,7 +55,7 @@ def segundo_endpoint():
   pred = model.predict(new)
   pred_proba = model.predict_proba(new)
 
-  json = '{"revenue": ' + ('True' if pred[0] else 'False') + ', "correct": '
+  json = '{"revenue": "' + ('Sim' if pred[0] else 'Nao') + '", "correct": '
 
   correct = 0.0
   incorrect = 0.0
