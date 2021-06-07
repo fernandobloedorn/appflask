@@ -13,7 +13,19 @@ new = np.array([0.0, 0.0, 0.0, 0.0, 2.0, 2.666667, 0.050000, 0.140000, 0.0, 0.0,
 pred = model.predict(new)
 pred_proba = model.predict_proba(new)
 
-json = '{"revenue":' + pred[0] + '}'
+json = '{"revenue":' + ('True' if pred[0] else 'False') + '}' + ', "correct": '
+
+correct = 0.0
+incorrect = 0.0
+
+if len(pred_proba) > 0:
+  l = len(pred_proba[0])
+  if l > 0:
+    correct = pred_proba[0][0]*100
+    if l > 1:
+      incorrect = pred_proba[0][1]*100
+
+json += str(correct) + ', "incorrect": ' + str(incorrect) + '}'
 
 # print(pred)
 # print(pred_proba)
